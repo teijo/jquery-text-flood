@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Simple Text Flood</title>
+<script type="text/javascript" src="lib/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+  var $list = $('ul')
+  ;['word', 'many short words in a box', 'longsinglestring'].forEach(function(it) {
+    for (var i = 0; i < 3; i++)
+      $list.append($('<li>').text(it))
+  })
+  $('li').textFlood()
+});
+</script>
+<style>
+#code {
+  display: block;
+  white-space: pre;
+  background-color: #EEE;
+  font-family: monospace;
+}
+h1, h2, #code {
+  clear: both;
+}
+li {
+  background-color: #F00;
+  margin: 10px;
+  float: left;
+}
+li:nth-child(3n+1) {
+  clear: left;
+  width: 100px;
+  height: 200px;
+}
+li:nth-child(3n+2) {
+  width: 200px;
+  height: 200px;
+}
+li:nth-child(3n+3) {
+  width: 200px;
+  height: 100px;
+}
+</style>
+</head>
+<body>
+<h1>Fill container with its text content</h1>
+<ul>
+</ul>
+<h2>Source</h2>
+<script id="code">
+;(function($) {
+  $.fn.textFlood = function(options) {
+    var THRESHOLD = 4
+    return this.each(function() {
+      var $container = $(this)
+      var height = $container.height()
+      var width = $container.width()
+      var content = $container.contents()
+      var $wrap = $('<span>').append(content)
+      $container.append($wrap)
+      ;(function f(size, scan) {
+        $wrap.css('font-size', size)
+        if ($wrap.height() > height || $wrap.width() > width)
+          size -= scan
+        else
+          size += scan
+        if (size > 5 && Math.abs(scan) > THRESHOLD)
+          f(size, ~~(scan/2))
+        else {
+          $wrap.replaceWith(content)
+          $container.css('font-size', size)
+        }
+      })(height, height/2)
+    })
+  }
+})(jQuery);
+</script>
+</body>
+</html>
