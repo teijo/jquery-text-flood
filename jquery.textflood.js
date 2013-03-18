@@ -1,5 +1,5 @@
 ;(function($) {
-  $.fn.textFlood = function(options) {
+  $.fn.textFlood = function() {
     var THRESHOLD = 4
     return this.each(function() {
       var $container = $(this)
