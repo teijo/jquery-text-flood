@@ -2,6 +2,7 @@
 <head>
 <title>Simple Text Flood</title>
 <script type="text/javascript" src="lib/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.floodtext.js"></script>
 <script>
 $(document).ready(function() {
   var $list = $('ul')
@@ -46,34 +47,5 @@ li:nth-child(3n+3) {
 <h1>Fill container with its text content</h1>
 <ul>
 </ul>
-<h2>Source</h2>
-<script id="code">
-;(function($) {
-  $.fn.textFlood = function(options) {
-    var THRESHOLD = 4
-    return this.each(function() {
-      var $container = $(this)
-      var height = $container.height()
-      var width = $container.width()
-      var content = $container.contents()
-      var $wrap = $('<span>').append(content)
-      $container.append($wrap)
-      ;(function f(size, scan) {
-        $wrap.css('font-size', size)
-        if ($wrap.height() > height || $wrap.width() > width)
-          size -= scan
-        else
-          size += scan
-        if (size > 5 && Math.abs(scan) > THRESHOLD)
-          f(size, ~~(scan/2))
-        else {
-          $wrap.replaceWith(content)
-          $container.css('font-size', size)
-        }
-      })(height, height/2)
-    })
-  }
-})(jQuery);
-</script>
 </body>
 </html>
