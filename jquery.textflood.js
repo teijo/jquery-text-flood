@@ -1,3 +1,10 @@
+/**
+ * jQuery Text Flood
+ *
+ * Copyright (c) 2013 Teijo Laine
+ *
+ * Licenced under the MIT licence
+ */
 ;(function($) {
   $.fn.textFlood = function() {
     var THRESHOLD = 4
